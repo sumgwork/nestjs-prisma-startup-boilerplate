@@ -117,7 +117,53 @@ describe('App (e2e)', () => {
           .expectStatus(200);
       });
     });
-    describe('Edit user', () => {});
+
+    describe('Edit user', () => {
+      const dto = {
+        firstName: 'TestF',
+        lastName: 'TestL',
+        email: 'test2@test.com',
+      };
+      it("should update user's firstName", () => {
+        return pactum
+          .spec()
+          .patch('/user')
+          .withHeaders({
+            Authorization: 'Bearer $S{userAt}',
+          })
+          .withBody({
+            firstName: dto.firstName,
+          })
+          .expectStatus(200)
+          .expectBodyContains(dto.firstName);
+      });
+      it("should update user's lastName", () => {
+        return pactum
+          .spec()
+          .patch('/user')
+          .withHeaders({
+            Authorization: 'Bearer $S{userAt}',
+          })
+          .withBody({
+            lastName: dto.lastName,
+          })
+          .expectStatus(200)
+          .expectBodyContains(dto.lastName);
+      });
+      it("should update user's email", () => {
+        return pactum
+          .spec()
+          .patch('/user')
+          .withHeaders({
+            Authorization: 'Bearer $S{userAt}',
+          })
+          .withBody({
+            email: dto.email,
+          })
+          .expectStatus(200)
+          .expectBodyContains(dto.email);
+      });
+    });
   });
   describe('Bookmarks', () => {
     describe('Get all bookmarks', () => {});
